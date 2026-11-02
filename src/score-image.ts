@@ -53,4 +53,3 @@ export async function scorecardPng(entries:{team:Team;index:number}[]):Promise<s
  entries.forEach((entry,i)=>drawCard(c,entry.team,entry.index,all?20+(i%2)*1020:0,all?20+Math.floor(i/2)*1120:0,portrait));
  return canvas.toDataURL('image/png');
 }
-

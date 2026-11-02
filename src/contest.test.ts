@@ -40,4 +40,3 @@ test('scores cannot be decimals, strings, zero or out of range',()=>{
  for(const n of [0,11,1.5,'8',null,NaN,Infinity])assert.equal(validScore(n),false);
  assert.equal(validScore(1),true);assert.equal(validScore(10),true);
 });
-

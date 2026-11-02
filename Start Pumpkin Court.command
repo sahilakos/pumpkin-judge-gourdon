@@ -13,4 +13,3 @@ if [[ ! -f dist/index.html ]]; then
 fi
 (sleep 2; open "http://127.0.0.1:3000/") &
 npm start
-

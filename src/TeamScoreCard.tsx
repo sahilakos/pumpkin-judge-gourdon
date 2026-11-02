@@ -13,4 +13,3 @@ export default function TeamScoreCard({team,index,onEdit,onDownload,active=false
   {!active?<div className="export-brand">THE MIDNIGHT PUMPKIN COURT <span>✦</span> HALLOWEEN EDITION</div>:null}
  </article>;
 }
-

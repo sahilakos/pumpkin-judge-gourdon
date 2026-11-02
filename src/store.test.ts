@@ -17,4 +17,3 @@ test('real score store saves categories progressively, finalizes and advances th
   await assert.rejects(()=>store.reveal(id),/four teams/);
  }finally{process.chdir(cwd);await rm(dir,{recursive:true,force:true});}
 });
-

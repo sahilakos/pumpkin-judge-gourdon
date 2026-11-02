@@ -38,4 +38,3 @@ export function csv(contest:Contest):string {
  const rows=[['Team','Members','Pumpkin',...categories.map(c=>c.label),'Total / 40','Status','Notes'],...contest.teams.map((t,i)=>[displayName(t,i),t.members.slice(0,t.size).filter(Boolean).join(' & '),t.pumpkin,...categories.map(c=>t.scores[c.key]),total(t),t.judged?'Judged':'Pending',t.note])];
  return rows.map(r=>r.map(cell).join(',')).join('\r\n');
 }
-

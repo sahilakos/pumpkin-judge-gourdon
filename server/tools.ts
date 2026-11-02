@@ -37,4 +37,3 @@ export function sessionPersonality(base:string,context:unknown){
  if(clean.length+extra.length>10000)throw new Error('The character personality plus saved roster is over 10,000 characters. Shorten the base personality before starting.');
  return clean+extra;
 }
-

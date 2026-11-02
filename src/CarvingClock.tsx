@@ -69,4 +69,3 @@ export default function CarvingClock({onReadyForJudge}:{onReadyForJudge:()=>void
   {!audioAvailable?<p className="audio-unavailable">Audio isn’t available in this browser. Announcements will appear on screen.</p>:null}
  </section>;
 }
-

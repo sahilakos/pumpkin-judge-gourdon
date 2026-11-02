@@ -38,4 +38,3 @@ try{
  console.log('Synthetic test data removed; actual nine-person roster restored:',restored.ok);
  dispose();setTimeout(()=>process.exit(process.exitCode??0),300);
 }
-

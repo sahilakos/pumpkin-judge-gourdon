@@ -52,4 +52,3 @@ export async function reveal(contestId:string){
  const c=await mutate(c=>{if(c.id!==contestId)throw new Error('This session belongs to an earlier contest.');if(!c.teams.every(t=>t.judged&&total(t)!==null))throw new Error('All four teams need complete scorecards before the reveal.');c.revealed=true;return c;});
  return {revealed:true,winners:winners(c.teams).map(t=>displayName(t,c.teams.findIndex(x=>x.id===t.id))),teams:c.teams.map((t,i)=>({name:displayName(t,i),scores:t.scores,total:total(t)}))};
 }
-

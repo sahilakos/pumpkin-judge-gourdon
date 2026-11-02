@@ -24,4 +24,3 @@ export const interludes=[
  {title:'Tools down. Pumpkins up.',kind:'THE CARVING HOUR IS COMPLETE',text:'The carving hour is over! Put your tools down safely, admire your masterpiece, and get ready to present it. When everyone is ready, your host can summon Judge Gourdon.',minutes:0}
 ];
 export function announcementText(index:number,remainingMs?:number){const i=interludes[index-1];const minutes=remainingMs===undefined?i.minutes:Math.ceil(Math.max(0,remainingMs)/60000);return i.text+(minutes>0?' You have '+minutes+' minutes left.':'');}
-

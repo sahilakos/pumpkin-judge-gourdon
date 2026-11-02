@@ -83,4 +83,3 @@ export default function LiveJudge(props:Props){
   <CallBody {...props}/>
  </AvatarCall>;
 }
-

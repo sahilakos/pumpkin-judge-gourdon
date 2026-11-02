@@ -113,4 +113,3 @@ const server=createServer(app);
 server.listen(PORT,'127.0.0.1',()=>console.log('Pumpkin Court is ready at http://127.0.0.1:'+PORT+' — local server, real score saving.'));
 async function shutdown(){for(const res of sseClients)res.end();await endActive();server.close();process.exit(0);}
 process.on('SIGINT',()=>void shutdown());process.on('SIGTERM',()=>void shutdown());
-

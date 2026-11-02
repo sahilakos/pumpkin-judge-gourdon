@@ -15,4 +15,3 @@ export async function connectJudge(signal:AbortSignal,preview=false):Promise<Ses
  if(typeof session.avatarId!=='string')throw new Error('The local server did not return a configured avatar. Restart the server and try again.');
  return {sessionId:session.sessionId,sessionKey:session.sessionKey,avatarId:session.avatarId};
 }
-

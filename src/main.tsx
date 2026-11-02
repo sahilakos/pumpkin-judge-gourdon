@@ -5,4 +5,3 @@ import './styles.css';
 import './halloween.css';
 import './phases.css';
 createRoot(document.getElementById('root')!).render(<App/>);
-
