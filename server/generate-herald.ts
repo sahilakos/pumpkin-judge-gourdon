@@ -1,0 +1,11 @@
+import Runway from '@runwayml/sdk';
+import {mkdir,writeFile,access} from 'node:fs/promises';
+import {setTimeout as wait} from 'node:timers/promises';
+import {announcementText} from '../src/clock.ts';
+import {requiredEnv} from './config.ts';
+const client=new Runway({apiKey:requiredEnv('RUNWAYML_API_SECRET'),timeout:30000,maxRetries:1});
+await mkdir('public/herald',{recursive:true});
+const entries=[{id:'start',text:'The pumpkin carving competition begins now! You have one hour. A Halloween surprise will arrive every five minutes. Happy carving!'},...Array.from({length:12},(_,i)=>({id:String(i+1).padStart(2,'0'),text:announcementText(i+1)}))];
+let cursor=0;
+await Promise.all(Array.from({length:4},async()=>{while(cursor<entries.length){const entry=entries[cursor++];const path='public/herald/'+entry.id+'.mp3';try{await access(path);continue;}catch{}const created=await client.textToSpeech.create({model:'eleven_multilingual_v2',promptText:entry.text,voice:{type:'runway-preset',presetId:'Bernard'}});const deadline=Date.now()+90000;let output:string|undefined;while(Date.now()<deadline){const task=await client.tasks.retrieve(created.id);if(task.status==='SUCCEEDED'){output=task.output[0];break;}if(task.status==='FAILED'||task.status==='CANCELLED')throw new Error('Herald clip '+entry.id+' generation failed.');await wait(2000);}if(!output)throw new Error('Herald clip timed out.');const response=await fetch(output);if(!response.ok)throw new Error('Herald download failed.');await writeFile(path,Buffer.from(await response.arrayBuffer()));console.log('Natural voice ready:',entry.id);}}));
+console.log('All 13 natural voice clips saved locally.');

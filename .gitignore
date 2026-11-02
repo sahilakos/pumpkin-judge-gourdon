@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env*
+!.env.example
+.DS_Store
+*.log
+.openai/*.tar.gz
+
+data/
+*.tsbuildinfo
+
+# Local tooling, recordings, and scratch files
+.openai/
+work/
+coverage/

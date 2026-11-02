@@ -1,0 +1,8 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {freshClock,startClock,pauseClock,timeLeft,dueAnnouncement,HOUR,INTERVAL,announcementText,restoreClock} from './clock.ts';
+test('the competition starts at a full hour and its deadline survives a reload',()=>{const c=startClock(freshClock(),1000);assert.equal(timeLeft(c,1000),HOUR);assert.equal(timeLeft(restoreClock(JSON.stringify(c)),601000),HOUR-600000);});
+test('announcements occur every five minutes and do not repeat',()=>{let c=startClock(freshClock(),1000);assert.equal(dueAnnouncement(c,1000+INTERVAL-1),0);assert.equal(dueAnnouncement(c,1000+INTERVAL),1);c={...c,lastAnnouncement:1};assert.equal(dueAnnouncement(c,1000+INTERVAL+100),0);assert.equal(dueAnnouncement(c,1000+2*INTERVAL),2);});
+test('a returning tab gets the latest interlude instead of twelve queued messages',()=>{const c=startClock(freshClock(),1000);assert.equal(dueAnnouncement(c,1000+8*INTERVAL+1000),8);assert.equal(dueAnnouncement(c,1000+HOUR+60000),12);});
+test('pausing and resuming preserve remaining time and the next announcement',()=>{const c=pauseClock(startClock(freshClock(),1000),121000);assert.equal(c.status,'paused');assert.equal(timeLeft(c,9999999),HOUR-120000);assert.equal(dueAnnouncement(c,9999999),0);const resumed=startClock(c,2000000);assert.equal(dueAnnouncement(resumed,2000000+180000),1);});
+test('twelve interludes include the correct time reminders and completion message',()=>{assert.match(announcementText(1),/55 minutes left/);assert.match(announcementText(6),/30 minutes left/);assert.match(announcementText(11),/5 minutes left/);assert.match(announcementText(12),/carving hour is over/);});
+
